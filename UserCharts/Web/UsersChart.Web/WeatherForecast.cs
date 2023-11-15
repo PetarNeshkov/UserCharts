@@ -1,4 +1,4 @@
-namespace UserCharts;
+namespace UsersChart.Web;
 
 public class WeatherForecast
 {

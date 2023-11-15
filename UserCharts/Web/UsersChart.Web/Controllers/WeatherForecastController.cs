@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace UserCharts.Controllers;
+namespace UsersChart.Web.Controllers;
 
 [ApiController]
 [Route("[controller]")]
