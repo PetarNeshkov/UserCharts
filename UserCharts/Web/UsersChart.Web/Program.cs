@@ -18,6 +18,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app
+    .PrepareDatabase()
     .UseHttpsRedirection()
     .UseAuthorization();
 
