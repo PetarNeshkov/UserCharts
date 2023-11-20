@@ -1,4 +1,5 @@
 using Bogus;
+using Microsoft.EntityFrameworkCore;
 using UsersChart.Data.Models;
 using UsersChart.Data.Seeding.Common;
 
@@ -11,6 +12,10 @@ public class UserSeeder : ISeeder
 {
     public async Task SeedAsync(UsersChartDbContext dbContext, IServiceProvider serviceProvider)
     {
+        if (await dbContext.Users.AnyAsync())
+        {
+            return;
+        }
         
         var userFaker = new Faker<User>()
             .RuleFor(u => u.Id, _ => Guid.NewGuid().ToString())

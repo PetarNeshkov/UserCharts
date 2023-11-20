@@ -3,22 +3,23 @@
   <div class="row">
       <div class="date-filter">
         <mat-form-field class="date-input">
-          <input matInput [matDatepicker]="fromDatepicker" placeholder="From date">
+          <input matInput [matDatepicker]="fromDatepicker" placeholder="From date"
+                 [(ngModel)]="from">
           <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
           <mat-datepicker #fromDatepicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="date-input">
-          <input matInput [matDatepicker]="toDatepicker" placeholder="To date">
+          <input matInput [matDatepicker]="toDatepicker" placeholder="To date"
+                 [(ngModel)]="to">
           <mat-datepicker-toggle matSuffix [for]="toDatepicker"></mat-datepicker-toggle>
           <mat-datepicker #toDatepicker></mat-datepicker>
         </mat-form-field>
 
       </div>
-<!--        <button mat-raised-button (click)="applyDateFilter()">Filter</button>-->
+    <button class="btn btn-primary mb-3" mat-raised-button (click)="applyDateFilter()">Filter</button>
 
-        <button mat-raised-button class="btn btn-primary mb-3">Filter</button>
-      <mat-table [dataSource]="timeLog"  matSort class="mat-elevation-z8">
+    <mat-table [dataSource]="timeLog"  matSort class="mat-elevation-z8">
 
 
         <!-- User Name Column -->
@@ -56,7 +57,12 @@
       </mat-table>
 
 
-    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+    <mat-paginator
+      [length]="paginator.length"
+      [pageSizeOptions]="[5, 10]"
+      showFirstLastButtons
+      (page)="onPageChange($event)">
+    </mat-paginator>
 
   </div>
 

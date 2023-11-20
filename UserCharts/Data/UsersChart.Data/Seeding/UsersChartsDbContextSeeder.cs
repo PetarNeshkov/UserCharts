@@ -16,7 +16,7 @@ public class UsersChartsDbContextSeeder : ISeeder
             throw new ArgumentNullException(nameof(serviceProvider));
         }
 
-        //  ClearOldDatabaseEntities(dbContext);
+        //ClearOldDatabaseEntities(dbContext);
         
         var seeders = new List<ISeeder>
         {

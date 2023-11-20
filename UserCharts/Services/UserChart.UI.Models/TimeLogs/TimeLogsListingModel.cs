@@ -1,7 +1,7 @@
 ﻿
 namespace UserChart.UI.Models.TimeLogs;
 
-public class TimeLogsServiceModel 
+public class TimeLogsListingModel 
 {
     public string Username { get; init; }
     

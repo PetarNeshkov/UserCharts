@@ -1,6 +1,5 @@
 using UserChart.Client;
-using UsersChart.Web;
-using UsersChart.Web.Infrastructure;
+using UserChart.Client.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

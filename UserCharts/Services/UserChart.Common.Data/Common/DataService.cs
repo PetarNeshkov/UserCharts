@@ -32,7 +32,7 @@ public class DataService<TEntity> : IDataService<TEntity>
         Expression<Func<TEntity, object>>? orderBy = null,
         bool descending = false,
         int? skip = null,
-        int? take = 10)
+        int? take = null)
     {
         var query = DbSet.AsQueryable();
 

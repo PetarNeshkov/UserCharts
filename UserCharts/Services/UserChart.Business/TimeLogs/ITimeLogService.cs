@@ -4,5 +4,8 @@ namespace UserChart.Business.TimeLogs;
 
 public interface ITimeLogService
 {
-    Task<IEnumerable<TimeLogsServiceModel>> GetUserTimeLogs();
+    Task<IEnumerable<TimeLogsListingModel>> GetUserTimeLogs(TimeLogServiceModel timeLogService);
+    
+    Task<int> GetTimeLogsCount();
+    
 }

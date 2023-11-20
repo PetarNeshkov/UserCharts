@@ -12,9 +12,9 @@ import {Inject, Injectable} from "@angular/core";
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+  get(path: string): Observable<any> {
     return this.http
-      .get(`${environment.baseApiUrl}${path}`, { params })
+      .get(`${environment.baseApiUrl}${path}`)
       .pipe(catchError(this.formatErrors));
   }
 

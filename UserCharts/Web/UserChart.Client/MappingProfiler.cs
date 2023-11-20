@@ -1,4 +1,5 @@
 using AutoMapper;
+using UserChart.Client.Models;
 using UserChart.UI.Models.TimeLogs;
 using UsersChart.Data.Models;
 
@@ -8,7 +9,7 @@ public class MappingProfiler : Profile
 {
     public MappingProfiler()
     {
-        CreateMap<TimeLog, TimeLogsServiceModel>()
+        CreateMap<TimeLog, TimeLogsListingModel>()
             .ForMember(x => x.Username,
                 opt => opt.MapFrom(
                     y => y.User.FirstName + y.User.LastName))
@@ -18,5 +19,7 @@ public class MappingProfiler : Profile
             .ForMember(x => x.ProjectName,
                 opt => opt.MapFrom(
                     y => y.Project.Name));
+        
+            CreateMap<TimeLogRequestModel, TimeLogServiceModel>();
     }
 }

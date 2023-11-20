@@ -1,4 +1,5 @@
 using Bogus;
+using Microsoft.EntityFrameworkCore;
 using UsersChart.Data.Models;
 using UsersChart.Data.Seeding.Common;
 
@@ -10,12 +11,17 @@ public class TimeLogSeeder : ISeeder
 {
     public async Task SeedAsync(UsersChartDbContext dbContext, IServiceProvider serviceProvider)
     {
+        if (await dbContext.TimeLogs.AnyAsync())
+        {
+            return;
+        }
+        
         var random = new Random();
 
         var timeLogFaker = new Faker<TimeLog>()
             .RuleFor(tl => tl.UserId, f => f.PickRandom(dbContext.Users.Select(u => u.Id).ToList()))
             .RuleFor(tl => tl.ProjectId, f => f.PickRandom(dbContext.Projects.Select(p => p.Id).ToList()))
-            .RuleFor(tl => tl.Date, f => f.Date.Recent())
+            .RuleFor(tl => tl.Date, f =>f.Date.Between(new DateTime(1980, 1, 1), DateTime.Now))
             .RuleFor(tl => tl.HoursWorked, (f, u) => {
                 var totalRandomMinutes = f.Random.Number(MinWorkingMinutes, MaxWorkingMinutes);
                 

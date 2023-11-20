@@ -10,22 +10,51 @@ import {MatPaginator} from "@angular/material/paginator";
   templateUrl: './time-log.component.html',
   styleUrls: ['./time-log.component.css']
 })
-export class TimeLogComponent implements OnInit{
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+export class TimeLogComponent implements OnInit {
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   displayedColumns: string[] = ['username', 'email', 'projectName', 'date', 'hoursWorked'];
   timeLog = new MatTableDataSource<TimeLog>([]);
+  page: number = 1;
+  from: Date | undefined = undefined;
+  to: Date | undefined = undefined;
 
-  constructor(private timeLogsService: TimeLogsService)
-  {}
+  constructor(private timeLogsService: TimeLogsService) {
+  }
 
   ngOnInit() {
-    this.timeLogsService.getTimeLogs().subscribe(res =>{
+    this.timeLogsService.getTimeLogs(1).subscribe(res => {
       this.timeLog = new MatTableDataSource(res);
       this.timeLog.sort = this.sort;
       this.timeLog.paginator = this.paginator;
     });
+
+    this.timeLogsService.getTimeLogsCount().subscribe(res => {
+      this.paginator.length = res;
+    });
   }
 
+  onPageChange(event: any) {
+    this.page = event.pageIndex + 1;
+    this.loadTimeLogs();
+  }
+
+  loadTimeLogs() {
+    this.timeLogsService.getTimeLogs(this.page, this.from, this.to)
+      .subscribe(res => {
+        this.timeLog.data = res;
+      });
+  }
+
+  applyDateFilter() {
+    this.page = 1;
+    this.paginator.pageIndex = 0;
+
+    // Call the service with the new parameters
+    this.timeLogsService.getTimeLogs(this.page, this.from, this.to)
+      .subscribe((res: any) => {
+        this.timeLog.data = res;
+      });
+  }
 }

@@ -3,7 +3,7 @@ using UserChart.Business.TimeLogs;
 using UserChart.Data.TimeLogs;
 using UsersChart.Data;
 
-namespace UsersChart.Web.Infrastructure;
+namespace UserChart.Client.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {

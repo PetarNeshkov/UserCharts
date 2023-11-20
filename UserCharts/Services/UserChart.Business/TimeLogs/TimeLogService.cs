@@ -11,9 +11,10 @@ public class TimeLogService : ITimeLogService
     {
         this.timeLogData = timeLogData;
     }
-    
-    public async Task<IEnumerable<TimeLogsServiceModel>> GetUserTimeLogs()
-    {
-        return await timeLogData.GetCurrentTimeLogs<TimeLogsServiceModel>();
-    }
+
+    public async Task<IEnumerable<TimeLogsListingModel>> GetUserTimeLogs(TimeLogServiceModel timeLogService)
+        => await timeLogData.GetCurrentTimeLogs<TimeLogsListingModel>(timeLogService.Page,timeLogService.From,timeLogService.To);
+
+    public async Task<int> GetTimeLogsCount()
+        => await timeLogData.GetTimeLogsCount();
 }

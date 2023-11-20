@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using UsersChart.Data.Models;
 using UsersChart.Data.Seeding.Common;
 
@@ -7,6 +8,11 @@ public class ProjectSeeder : ISeeder
 {
     public async Task SeedAsync(UsersChartDbContext dbContext, IServiceProvider serviceProvider)
     {
+        if (await dbContext.Projects.AnyAsync())
+        {
+            return;
+        }
+        
         var projects = new List<Project>
         {
             new() { Name = "My own" },

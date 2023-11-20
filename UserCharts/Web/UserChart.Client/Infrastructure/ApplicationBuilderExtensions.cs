@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using UsersChart.Data;
 using UsersChart.Data.Seeding;
 
-namespace UsersChart.Web.Infrastructure;
+namespace UserChart.Client.Infrastructure;
 
 public static class ApplicationBuilderExtensions
 {
