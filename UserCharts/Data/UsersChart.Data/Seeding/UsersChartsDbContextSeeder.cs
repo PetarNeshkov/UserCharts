@@ -2,21 +2,19 @@ using UsersChart.Data.Seeding.Common;
 
 namespace UsersChart.Data.Seeding;
 
-public class UsersChartsDbContextSeeder : ISeeder
+public class UsersChartsDbContextSeeder : IDatabaseSeeder
 {
-    public async Task SeedAsync(UsersChartDbContext dbContext, IServiceProvider serviceProvider)
+    public async Task SeedDatabase(UsersChartDbContext dbContext, IServiceProvider serviceProvider)
     {
-        if (dbContext==null)
+        if (dbContext == null)
         {
             throw new ArgumentNullException(nameof(dbContext));
         }
 
-        if (serviceProvider==null)
+        if (serviceProvider == null)
         {
             throw new ArgumentNullException(nameof(serviceProvider));
         }
-
-        //ClearOldDatabaseEntities(dbContext);
         
         var seeders = new List<ISeeder>
         {
@@ -24,18 +22,12 @@ public class UsersChartsDbContextSeeder : ISeeder
             new ProjectSeeder(),
             new TimeLogSeeder()
         };
-        
+
         foreach (var seeder in seeders)
         {
-            await seeder.SeedAsync(dbContext, serviceProvider);
+            await seeder.SeedAsync(dbContext);
             await dbContext.SaveChangesAsync();
         }
     }
-
-    private static void ClearOldDatabaseEntities(UsersChartDbContext usersChartDbContext)
-    {
-        usersChartDbContext.Users.RemoveRange(usersChartDbContext.Users);
-        usersChartDbContext.Projects.RemoveRange(usersChartDbContext.Projects);
-        usersChartDbContext.TimeLogs.RemoveRange(usersChartDbContext.TimeLogs);
-    }
+    
 }

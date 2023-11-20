@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using UserChart.Business.InitializeDatabase;
 using UserChart.Business.TimeLogs;
 using UserChart.Data.TimeLogs;
 using UsersChart.Data;
@@ -13,15 +14,6 @@ public static class ServiceCollectionExtensions
         => services
             .AddDbContext<UsersChartDbContext>(options => options
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-    public static IServiceCollection AddCorsConf(this IServiceCollection services)
-        => services.AddCors(options =>
-        {
-            options.AddPolicy("AllowSpecificOrigin",
-                builder => builder.WithOrigins("https://localhost:4200")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-        });
     
     public static IApplicationBuilder UseAnyCors(
         this IApplicationBuilder app)
@@ -37,12 +29,13 @@ public static class ServiceCollectionExtensions
         {
             endpoints.MapControllers();
         });
-    
+
     public static IServiceCollection AddApplicationServices(
         this IServiceCollection services,
         IConfiguration configuration)
         => services
             .AddSingleton(configuration)
             .AddScoped<ITimeLogDataService, TimeLogDataService>()
-            .AddScoped<ITimeLogService, TimeLogService>();
+            .AddScoped<ITimeLogService, TimeLogService>()
+            .AddScoped<IInitializeDatabaseService, InitializeDatabaseService>();
 }

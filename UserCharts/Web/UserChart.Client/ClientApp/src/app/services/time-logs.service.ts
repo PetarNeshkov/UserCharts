@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import {TimeLog} from "../models/time-log";
 import {ApiService} from "./api.service";
 import {Injectable} from "@angular/core";
-import {HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +31,6 @@ export class TimeLogsService {
 
   getTimeLogsCount(){
     const path: string = `${this.timeLogPath}gettimelogcount`;
-
     return this.api.get(path);
   }
 

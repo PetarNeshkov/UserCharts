@@ -9,7 +9,7 @@ namespace UsersChart.Data.Seeding;
 
 public class TimeLogSeeder : ISeeder
 {
-    public async Task SeedAsync(UsersChartDbContext dbContext, IServiceProvider serviceProvider)
+    public async Task SeedAsync(UsersChartDbContext dbContext)
     {
         if (await dbContext.TimeLogs.AnyAsync())
         {

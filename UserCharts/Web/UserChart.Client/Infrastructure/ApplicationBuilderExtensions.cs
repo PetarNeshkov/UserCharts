@@ -26,7 +26,7 @@ public static class ApplicationBuilderExtensions
             using var dbContext=scopedService.ServiceProvider.GetRequiredService<UsersChartDbContext>();
 
             new UsersChartsDbContextSeeder()
-                .SeedAsync(dbContext,scopedService.ServiceProvider)
+                .SeedDatabase(dbContext, scopedService.ServiceProvider)
                 .GetAwaiter()
                 .GetResult();
         }

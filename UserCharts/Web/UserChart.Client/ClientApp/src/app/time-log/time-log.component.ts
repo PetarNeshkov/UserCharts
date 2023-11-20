@@ -4,6 +4,7 @@ import {TimeLogsService} from "../services/time-logs.service";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
+import {InitializeDatabaseService} from "../services/initialize-database.service";
 
 @Component({
   selector: 'app-time-log',
@@ -20,8 +21,8 @@ export class TimeLogComponent implements OnInit {
   from: Date | undefined = undefined;
   to: Date | undefined = undefined;
 
-  constructor(private timeLogsService: TimeLogsService) {
-  }
+  constructor(private timeLogsService: TimeLogsService, private  initializeDatabaseService: InitializeDatabaseService)
+  {}
 
   ngOnInit() {
     this.timeLogsService.getTimeLogs(1).subscribe(res => {
@@ -40,20 +41,26 @@ export class TimeLogComponent implements OnInit {
     this.loadTimeLogs();
   }
 
-  loadTimeLogs() {
-    this.timeLogsService.getTimeLogs(this.page, this.from, this.to)
-      .subscribe(res => {
-        this.timeLog.data = res;
-      });
-  }
-
   applyDateFilter() {
     this.page = 1;
     this.paginator.pageIndex = 0;
 
-    // Call the service with the new parameters
+    this.loadTimeLogs();
+  }
+
+  initializeDatabase(){
+    this.initializeDatabaseService.initializeDatabase().subscribe( {
+      next: () => {
+        window.location.reload();
+      }
+    });
+
+    window.location.reload();
+  }
+
+  loadTimeLogs() {
     this.timeLogsService.getTimeLogs(this.page, this.from, this.to)
-      .subscribe((res: any) => {
+      .subscribe(res => {
         this.timeLog.data = res;
       });
   }

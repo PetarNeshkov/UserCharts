@@ -6,7 +6,7 @@ namespace UsersChart.Data.Seeding;
 
 public class ProjectSeeder : ISeeder
 {
-    public async Task SeedAsync(UsersChartDbContext dbContext, IServiceProvider serviceProvider)
+    public async Task SeedAsync(UsersChartDbContext dbContext)
     {
         if (await dbContext.Projects.AnyAsync())
         {
