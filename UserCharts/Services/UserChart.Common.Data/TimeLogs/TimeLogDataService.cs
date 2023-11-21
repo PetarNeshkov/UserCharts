@@ -2,6 +2,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using UserChart.Data.Common;
+using UserChart.UI.Models.UserCharts;
 using UsersChart.Data;
 using UsersChart.Data.Models;
 
@@ -52,4 +53,34 @@ public class TimeLogDataService : DataService<TimeLog>, ITimeLogDataService
 
     public async Task<int> GetTimeLogsCount()
         => await GetQuery().CountAsync();
+
+    public async Task<IEnumerable<UsersChartListingModel>> GetCurrentTopUsers(DateTime? dateFrom, DateTime? dateTo)
+    {
+        var topUserQueryable = GetQuery();
+        
+        if (dateFrom != null)
+        {
+            topUserQueryable =  GetQuery(
+                filter: t => t.Date > dateFrom);
+        }
+
+        if (dateTo != null)
+        {
+            topUserQueryable =  GetQuery(
+                filter: t => t.Date < dateTo);
+        }
+
+        var a = await topUserQueryable
+            .GroupBy(t => t.UserId)
+            .Select(u => new UsersChartListingModel
+            {
+                Username = u.Select(u => u.User.FirstName + u.User.LastName).FirstOrDefault(),
+                HoursWorked = u.Sum(u => u.HoursWorked)
+            })
+            .OrderByDescending(u => u.HoursWorked)
+            .Take(10)
+            .ToListAsync();
+
+        return a;
+    }
 }

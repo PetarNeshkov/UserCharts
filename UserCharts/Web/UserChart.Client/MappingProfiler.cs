@@ -1,6 +1,7 @@
 using AutoMapper;
 using UserChart.Client.Models;
 using UserChart.UI.Models.TimeLogs;
+using UserChart.UI.Models.UserCharts;
 using UsersChart.Data.Models;
 
 namespace UserChart.Client;
@@ -21,5 +22,6 @@ public class MappingProfiler : Profile
                     y => y.Project.Name));
         
             CreateMap<TimeLogRequestModel, TimeLogServiceModel>();
+            CreateMap<UsersChartRequestModel, UsersChartServiceModel>();
     }
 }
