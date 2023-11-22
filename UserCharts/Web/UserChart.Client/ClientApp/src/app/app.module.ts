@@ -16,13 +16,16 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { TimeLogComponent } from './time-log/time-log.component';
+import { TimeLogComponent } from './components/time-log/time-log.component';
+import {GoogleChartsModule} from "angular-google-charts";
+import {BarChartComponent} from "./components/bar-chart/bar-chart.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    TimeLogComponent
+    TimeLogComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,7 +42,8 @@ import { TimeLogComponent } from './time-log/time-log.component';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    GoogleChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

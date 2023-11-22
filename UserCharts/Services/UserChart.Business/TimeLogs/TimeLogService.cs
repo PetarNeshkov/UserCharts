@@ -6,7 +6,11 @@ namespace UserChart.Business.TimeLogs;
 
 public class TimeLogService : ITimeLogService
 {
+    private const string UsersOption = "users";
+    private const string ProjectsOption = "projects";
+    
     private readonly ITimeLogDataService timeLogData;
+    
 
     public TimeLogService(ITimeLogDataService timeLogData)
     {
@@ -20,5 +24,17 @@ public class TimeLogService : ITimeLogService
         => await timeLogData.GetTimeLogsCount();
 
     public async Task<IEnumerable<UsersChartListingModel>> GetTopUsers(UsersChartServiceModel usersChartService)
-        => await timeLogData.GetCurrentTopUsers(usersChartService.From, usersChartService.To);
+    {
+        if (usersChartService.SelectedOption == UsersOption )
+        {
+            return await timeLogData.GetCurrentTopUsers(usersChartService.From, usersChartService.To);
+        }
+
+        if (usersChartService.SelectedOption == ProjectsOption)
+        {
+            return await timeLogData.GetCurrentTopProjects(usersChartService.From, usersChartService.To);
+        }
+
+        return new List<UsersChartListingModel>();
+    }
 }

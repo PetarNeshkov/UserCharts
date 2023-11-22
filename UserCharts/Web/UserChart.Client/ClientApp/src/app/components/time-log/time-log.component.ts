@@ -1,10 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {TimeLog} from "../models/time-log";
-import {TimeLogsService} from "../services/time-logs.service";
+import {TimeLog} from "../../models/time-log";
+import {TimeLogsService} from "../../services/time-logs.service";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {InitializeDatabaseService} from "../services/initialize-database.service";
+import {InitializeDatabaseService} from "../../services/initialize-database.service";
+import {BarChartService} from "../../services/bar-chart.service";
+import {Chart} from "../../models/chart";
 
 @Component({
   selector: 'app-time-log',
@@ -15,13 +17,16 @@ export class TimeLogComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['username', 'email', 'projectName', 'date', 'hoursWorked'];
+  displayedColumns: string[] = ['username', 'email', 'projectName', 'date', 'hoursWorked', 'id'];
   timeLog = new MatTableDataSource<TimeLog>([]);
   page: number = 1;
   from: Date | undefined = undefined;
   to: Date | undefined = undefined;
 
-  constructor(private timeLogsService: TimeLogsService, private  initializeDatabaseService: InitializeDatabaseService)
+  constructor(
+    private timeLogsService: TimeLogsService,
+    private initializeDatabaseService: InitializeDatabaseService,
+    private barChartService: BarChartService)
   {}
 
   ngOnInit() {
@@ -46,6 +51,10 @@ export class TimeLogComponent implements OnInit {
     this.paginator.pageIndex = 0;
 
     this.loadTimeLogs();
+
+    const selectedOption = this.barChartService.selectedOption;
+
+    this.barChartService.getChart(selectedOption,this.from,this.to);
   }
 
   initializeDatabase(){

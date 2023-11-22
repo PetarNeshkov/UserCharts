@@ -70,17 +70,43 @@ public class TimeLogDataService : DataService<TimeLog>, ITimeLogDataService
                 filter: t => t.Date < dateTo);
         }
 
-        var a = await topUserQueryable
+        return  await topUserQueryable
             .GroupBy(t => t.UserId)
             .Select(u => new UsersChartListingModel
             {
-                Username = u.Select(u => u.User.FirstName + u.User.LastName).FirstOrDefault(),
+                KeyNameValue = u.Select(u => u.User.FirstName + u.User.LastName).FirstOrDefault(),
                 HoursWorked = u.Sum(u => u.HoursWorked)
             })
             .OrderByDescending(u => u.HoursWorked)
             .Take(10)
             .ToListAsync();
+    }
 
-        return a;
+    public async Task<IEnumerable<UsersChartListingModel>> GetCurrentTopProjects(DateTime? dateFrom, DateTime? dateTo)
+    {
+        var topUserQueryable = GetQuery();
+        
+        if (dateFrom != null)
+        {
+            topUserQueryable =  GetQuery(
+                filter: t => t.Date > dateFrom);
+        }
+
+        if (dateTo != null)
+        {
+            topUserQueryable =  GetQuery(
+                filter: t => t.Date < dateTo);
+        }
+
+        return await topUserQueryable
+            .GroupBy(t => t.ProjectId)
+            .Select(u => new UsersChartListingModel
+            {
+                KeyNameValue = u.Select(u => u.Project.Name).FirstOrDefault(),
+                HoursWorked = u.Sum(u => u.HoursWorked)
+            })
+            .OrderByDescending(u => u.HoursWorked)
+            .Take(10)
+            .ToListAsync();
     }
 }

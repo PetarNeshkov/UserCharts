@@ -1,0 +1,17 @@
+<div class="mt-4">
+  <div class="radio-buttons">
+  <label>
+    <input class="radio-input" type="radio" name="options" value="users" [(ngModel)]="selectedOption" (change)="onOptionChange('users')"> Users
+  </label>
+  <label>
+    <input class="radio-input" type="radio" name="options" value="projects" [(ngModel)]="selectedOption" (change)="onOptionChange('projects')"> Projects
+  </label>
+  </div>
+  <google-chart
+    [type]="chartType"
+    [data]="chartData"
+    [columns]="chartColumns"
+
+  >
+  </google-chart>
+</div>

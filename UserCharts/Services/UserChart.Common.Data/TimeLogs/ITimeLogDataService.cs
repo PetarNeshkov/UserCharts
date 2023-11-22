@@ -9,5 +9,8 @@ public interface ITimeLogDataService
     Task<int> GetTimeLogsCount();
 
     Task<IEnumerable<UsersChartListingModel>> GetCurrentTopUsers(DateTime? dateFrom, DateTime? dateTo);
+    
+    Task<IEnumerable<UsersChartListingModel>> GetCurrentTopProjects(DateTime? dateFrom, DateTime? dateTo);
+
 
 }

@@ -23,7 +23,7 @@ public class ChartsController : BaseApiController
     
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<TimeLogsListingModel>), Status200OK)]
-    public async Task<IActionResult> GetTimeLog([FromQuery] UsersChartRequestModel usersChartRequestModel)
+    public async Task<IActionResult> ChartResult([FromQuery] UsersChartRequestModel usersChartRequestModel)
     {
         var timeLogs = await timeLogsService
                                                         .GetTopUsers(usersChartRequestModel

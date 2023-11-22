@@ -3,6 +3,8 @@ namespace UserChart.UI.Models.TimeLogs;
 
 public class TimeLogsListingModel 
 {
+    public int Id { get; init; }
+    
     public string Username { get; init; }
     
     public string Email { get; init; }
