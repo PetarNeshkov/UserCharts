@@ -1,59 +1,99 @@
-<div class="row">
-  <div class="col-md-7">
-    <div>
-      <div class="date-filter">
-        <mat-form-field class="date-input">
-          <input matInput [matDatepicker]="fromDatepicker" placeholder="From date"
-                 [(ngModel)]="from">
-          <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
-          <mat-datepicker #fromDatepicker></mat-datepicker>
-        </mat-form-field>
+<div class="d-flex" style="flex-direction: column">
+  <div class="date-filter" >
+    <mat-form-field class="date-input">
+      <input
+        matInput
+        [matDatepicker]="fromDatepicker"
+        placeholder="From date"
+        [(ngModel)]="from"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="fromDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fromDatepicker></mat-datepicker>
+    </mat-form-field>
 
-        <mat-form-field class="date-input">
-          <input matInput [matDatepicker]="toDatepicker" placeholder="To date"
-                 [(ngModel)]="to">
-          <mat-datepicker-toggle matSuffix [for]="toDatepicker"></mat-datepicker-toggle>
-          <mat-datepicker #toDatepicker></mat-datepicker>
-        </mat-form-field>
+    <mat-form-field class="date-input">
+      <input
+        matInput
+        [matDatepicker]="toDatepicker"
+        placeholder="To date"
+        [(ngModel)]="to"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="toDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #toDatepicker></mat-datepicker>
+    </mat-form-field>
+  </div>
 
-      </div>
-      <button class= "col-md-7  btn btn-primary mb-3" mat-raised-button (click)="applyDateFilter()">Filter</button>
+  <div class="filter buton">
+    <button
+      class="col-md-7 btn btn-primary mb-3"
+      mat-raised-button
+      (click)="applyDateFilter()"
+    >
+      Filter
+    </button>
+  </div>
 
+  <div class="table-and-chart d-flex">
+    <div class="custom-table">
       <mat-table [dataSource]="timeLog" matSort class="mat-elevation-z8">
         <!-- User Name Column -->
         <ng-container matColumnDef="username" class="tableHeader">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> User Name</th>
-          <td mat-cell *matCellDef="let element"> {{ element.username }} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.username }}</td>
         </ng-container>
 
         <!-- Email Column -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
-          <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
         <!-- Project Name Column -->
         <ng-container matColumnDef="projectName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name</th>
-          <td mat-cell *matCellDef="let element"> {{ element.projectName }} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Project Name
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.projectName }}</td>
         </ng-container>
 
         <!-- Date Column -->
         <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="date-column"> Date</th>
-          <td mat-cell *matCellDef="let element" class="date-column"> {{ element.date | date }} </td>
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            class="date-column"
+          >
+            Date
+          </th>
+          <td mat-cell *matCellDef="let element" class="date-column">
+            {{ element.date | date }}
+          </td>
         </ng-container>
 
         <!-- Hours Worked Column -->
         <ng-container matColumnDef="hoursWorked">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours Worked</th>
-          <td mat-cell *matCellDef="let element"> {{ element.hoursWorked }} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Hours Worked
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.hoursWorked }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="id">
+        <ng-container matColumnDef="compare">
           <th mat-header-cell *matHeaderCellDef>Compare</th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btn-secondary btn-sm ">Compare</button>
+            <button
+              class="row btn btm btn-primary"
+              (click)="compareUser(element.id)"
+            >
+              Compare
+            </button>
           </td>
         </ng-container>
 
@@ -61,23 +101,26 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </mat-table>
 
-
       <mat-paginator
         [length]="paginator.length"
-        [pageSizeOptions]="[5, 10]"
+        [pageSizeOptions]="[10]"
         showFirstLastButtons
-        (page)="onPageChange($event)">
+        (page)="onPageChange($event)"
+      >
       </mat-paginator>
-
     </div>
-
+    <div class="chart">
+      <app-bar-chart></app-bar-chart>
+    </div>
   </div>
-  <div class="col-md-5">
-    <app-bar-chart></app-bar-chart>
+
+  <div class="reset button">
+    <button
+      class="col-md-7 justify-content-center btn btn-primary"
+      mat-raised-button
+      (click)="initializeDatabase()"
+    >
+      Reset Database
+    </button>
   </div>
-
-  <button class="col-md-7 justify-content-center btn btn-primary mt-3 " mat-raised-button
-          (click)="initializeDatabase()">Reset Database
-  </button>
-
 </div>

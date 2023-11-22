@@ -11,6 +11,9 @@ public class MappingProfiler : Profile
     public MappingProfiler()
     {
         CreateMap<TimeLog, TimeLogsListingModel>()
+            .ForMember(x => x.Id,
+                opt => opt.MapFrom(
+                    y=> y.User.Id))
             .ForMember(x => x.Username,
                 opt => opt.MapFrom(
                     y => y.User.FirstName + y.User.LastName))
@@ -23,5 +26,9 @@ public class MappingProfiler : Profile
         
             CreateMap<TimeLogRequestModel, TimeLogServiceModel>();
             CreateMap<UsersChartRequestModel, UsersChartServiceModel>();
+            CreateMap<TimeLog, TimeLogUserModel>()
+                .ForMember(x => x.Username,
+                    opt => opt.MapFrom(
+                        y => y.User.FirstName + y.User.LastName));
     }
 }

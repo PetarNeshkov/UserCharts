@@ -6,7 +6,6 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {InitializeDatabaseService} from "../../services/initialize-database.service";
 import {BarChartService} from "../../services/bar-chart.service";
-import {Chart} from "../../models/chart";
 
 @Component({
   selector: 'app-time-log',
@@ -17,7 +16,7 @@ export class TimeLogComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['username', 'email', 'projectName', 'date', 'hoursWorked', 'id'];
+  displayedColumns: string[] = ['username', 'email', 'projectName', 'date', 'hoursWorked', 'compare'];
   timeLog = new MatTableDataSource<TimeLog>([]);
   page: number = 1;
   from: Date | undefined = undefined;
@@ -70,7 +69,13 @@ export class TimeLogComponent implements OnInit {
   loadTimeLogs() {
     this.timeLogsService.getTimeLogs(this.page, this.from, this.to)
       .subscribe(res => {
-        this.timeLog.data = res;
+        if(res.length > 1){
+          this.timeLog.data = res;
+        }
       });
+  }
+
+  compareUser(userId: string) {
+    this.timeLogsService.getUserData(userId);
   }
 }

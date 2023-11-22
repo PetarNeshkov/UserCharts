@@ -1,4 +1,4 @@
-<div class="mt-4">
+<div>
   <div class="radio-buttons">
   <label>
     <input class="radio-input" type="radio" name="options" value="users" [(ngModel)]="selectedOption" (change)="onOptionChange('users')"> Users
@@ -11,7 +11,9 @@
     [type]="chartType"
     [data]="chartData"
     [columns]="chartColumns"
-
+    [options]="chartOptions"
+    [width]="500"
+    [height]="400"
   >
   </google-chart>
 </div>

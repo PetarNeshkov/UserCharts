@@ -1,5 +1,5 @@
 interface TimeLog {
-  id: number;
+  id: string;
   username: string;
   email: string;
   projectName: string;

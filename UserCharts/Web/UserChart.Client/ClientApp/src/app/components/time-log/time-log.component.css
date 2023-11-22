@@ -8,7 +8,7 @@ body {
 
 .date-filter {
   display: flex;
-  justify-content: space-between;
+  gap: 240px;
   padding: 10px 0;
 }
 
@@ -18,4 +18,20 @@ body {
 
 .tableHeader{
   color: #1b6ec2;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.custom-table{
+  width: 758px;
+}
+
+.table-and-chart{
+  justify-content: space-between;
+}
+
+.mat-sort-header-container {
+  justify-content: center;
 }

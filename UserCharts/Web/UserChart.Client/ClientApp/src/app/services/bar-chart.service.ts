@@ -9,8 +9,9 @@ import {BehaviorSubject} from "rxjs";
 export class BarChartService {
   public selectedOption: string = '';
   private userChartsPath: string = 'charts/';
-  private chartDataSubject = new BehaviorSubject<any[]>([]);
+  public chartDataSubject = new BehaviorSubject<any[]>([]);
   public chartData$ = this.chartDataSubject.asObservable();
+
 
   constructor(private api: ApiService) {
   }
@@ -32,7 +33,7 @@ export class BarChartService {
     const result= this.api.get(path);
 
     result.subscribe(res => {
-      const result= res.map((chart: Chart) => [chart.keyNameValue, chart.hoursWorked]);
+      const result= res.map((chart: Chart) => [chart.keyNameValue, chart.hoursWorked, 0]);
       this.chartDataSubject.next(result);
     })
   }

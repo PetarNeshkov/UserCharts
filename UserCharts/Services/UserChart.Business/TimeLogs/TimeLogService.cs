@@ -37,4 +37,7 @@ public class TimeLogService : ITimeLogService
 
         return new List<UsersChartListingModel>();
     }
+
+    public async Task<TimeLogUserModel> GetUserData(string userId)
+        => await timeLogData.GetUserById<TimeLogUserModel>(userId);
 }

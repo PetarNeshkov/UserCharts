@@ -109,4 +109,9 @@ public class TimeLogDataService : DataService<TimeLog>, ITimeLogDataService
             .Take(10)
             .ToListAsync();
     }
+
+    public async Task<TServiceModel> GetUserById<TServiceModel>(string id)
+        => await GetQuery(filter: tl => tl.User.Id == id)
+            .ProjectTo<TServiceModel>(mapper.ConfigurationProvider)
+            .FirstAsync();
 }

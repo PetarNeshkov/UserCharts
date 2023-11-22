@@ -4,5 +4,6 @@
 
 .radio-buttons {
   display: flex;
-  padding: 10px 0;
+  gap: 130px;
+  justify-content: center;
 }

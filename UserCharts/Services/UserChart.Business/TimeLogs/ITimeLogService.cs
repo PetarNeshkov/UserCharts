@@ -11,4 +11,5 @@ public interface ITimeLogService
 
     Task<IEnumerable<UsersChartListingModel>> GetTopUsers(UsersChartServiceModel usersChartService);
 
+    Task<TimeLogUserModel> GetUserData(string userId);
 }

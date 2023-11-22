@@ -37,4 +37,13 @@ public class TimeLogsController : BaseApiController
 
         return Ok(timeLogsCount);
     }
+    
+    [HttpGet]
+    [ProducesResponseType(typeof(int), Status200OK)]
+    public async Task<IActionResult> GetUserData([FromQuery] string userId)
+    {
+        var timeLogsCount = await timeLogsService.GetUserData(userId);
+
+        return Ok(timeLogsCount);
+    }
 }

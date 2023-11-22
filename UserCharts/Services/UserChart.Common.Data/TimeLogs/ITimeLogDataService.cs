@@ -1,3 +1,4 @@
+using UserChart.UI.Models.TimeLogs;
 using UserChart.UI.Models.UserCharts;
 
 namespace UserChart.Data.TimeLogs;
@@ -12,5 +13,6 @@ public interface ITimeLogDataService
     
     Task<IEnumerable<UsersChartListingModel>> GetCurrentTopProjects(DateTime? dateFrom, DateTime? dateTo);
 
+    Task<TServiceModel> GetUserById<TServiceModel>(string id);
 
 }
